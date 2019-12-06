@@ -104,9 +104,8 @@ router.put('/:id', (req, res) => {
         });
 });
 
-//:id/actions
 
-router.post('/', (req, res) => {
+router.post('/', validateProjectId, (req, res) => {
     const action = req.body;
     const { description, completed, notes } = action;
     console.log(action);
@@ -130,5 +129,24 @@ router.post('/', (req, res) => {
             });
     };
 });
+
+function validateProjectId(req, res, next) {
+    const id = req.params.id;
+    console.log('valid id', id)
+    am.get(id)
+        .then(project => {
+            if (!project) {
+                res.status(401).json({ message: "invalid project id" });
+            } else {
+                next();
+            }
+        })
+        .catch(error => {
+            console.log('error on Validating /Project ID', error);
+            res
+                .status(500)
+                .json({ error: "Server Error Validating ID." });
+        });
+}
 
 module.exports = router;

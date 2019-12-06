@@ -143,8 +143,6 @@ router.post('/', (req, res) => {
     };
 });
 
-// router.post('/:id/actions', (req, res) => {
-//     //here
-// });
+
 
 module.exports = router;
