@@ -10,7 +10,7 @@ const server = express();
 server.use(express.json(), logger);
 
 server.use('/api/projects', projectRouter);
-// server.use('/api/actions', actionRouter);
+server.use('/api/actions', actionRouter);
 
 server.get('/', (req, res) => {
     const message = process.env.MSG || "Hello, this is your Sprint Challenge"
